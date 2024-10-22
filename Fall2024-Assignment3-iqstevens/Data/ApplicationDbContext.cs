@@ -9,5 +9,11 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+
+public DbSet<Fall2024_Assignment3_iqstevens.Models.Movie> Student { get; set; } = default!;
+
+public DbSet<Fall2024_Assignment3_iqstevens.Models.Actor> Course { get; set; } = default!;
+
+public DbSet<Fall2024_Assignment3_iqstevens.Models.MovieActor> CourseStudent { get; set; } = default!;
 }
 
