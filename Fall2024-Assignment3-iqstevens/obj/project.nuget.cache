@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F6aeoMwyFMYuQ8iFtxJAh39mYzIhD7EERvxCqffS4mO0K399d+By5LONYrJ7zQoYSs5VdDpCGypYFykD7jfARQ==",
+  "dgSpecHash": "wn4Mpapt5ak=",
   "success": true,
-  "projectFilePath": "/Users/you/Desktop/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
+  "projectFilePath": "/Users/you/Desktop/Holder for Repo330/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
   "expectedPackageFiles": [
     "/Users/you/.nuget/packages/azure.ai.openai/2.0.0/azure.ai.openai.2.0.0.nupkg.sha512",
     "/Users/you/.nuget/packages/azure.core/1.43.0/azure.core.1.43.0.nupkg.sha512",

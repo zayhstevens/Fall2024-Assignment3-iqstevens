@@ -3371,11 +3371,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/you/Desktop/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
+      "projectUniqueName": "/Users/you/Desktop/Holder for Repo330/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
       "projectName": "Fall2024-Assignment3-iqstevens",
-      "projectPath": "/Users/you/Desktop/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
+      "projectPath": "/Users/you/Desktop/Holder for Repo330/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
       "packagesPath": "/Users/you/.nuget/packages/",
-      "outputPath": "/Users/you/Desktop/Fall2024-Assignment3-iqstevens/obj/",
+      "outputPath": "/Users/you/Desktop/Holder for Repo330/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/you/.nuget/NuGet/NuGet.Config"
@@ -3396,6 +3396,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
