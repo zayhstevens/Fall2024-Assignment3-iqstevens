@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Actors</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -43,10 +43,33 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IMDB)
+                @if (!string.IsNullOrEmpty(item.IMDB))
+                {
+                    <a href="@item.IMDB" target="_blank">View on IMDB</a>
+                }
+                else
+                {
+                    <span>No IMDB link</span>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Photo)
+                @if (item.Photo != null && item.Photo.Length > 0)
+                {
+                    var extension = ".jpg";
+                    if (item.Photo.Length > 0)
+                    {
+
+                        extension = ".jpeg";
+                    }
+
+                    var mimeType = extension == ".png" ? "image/png" : "image/jpeg";
+
+                    <img src="data:@mimeType;base64,@Convert.ToBase64String(item.Photo)" alt="Poster" style="width: 150px; height: auto;" />
+                }
+                else
+                {
+                    <span>No image available</span>
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -9,9 +9,11 @@ public class Movie
     [Required]
     public required string Name {get; set;}
     public string? IMDB {get; set;}
+    [Required]
+    public required string Genre { get; set; }
     public int ReleaseYear {get; set;}
     
-    [Required]
-    public required byte[] Poster { get; set; }
+
+    public byte[]? Poster { get; set; }
 
 }

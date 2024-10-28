@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -23,16 +23,21 @@
                 <span asp-validation-for="IMDB" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Genre" class="control-label"></label>
+                <input asp-for="Genre" class="form-control" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ReleaseYear" class="control-label"></label>
                 <input asp-for="ReleaseYear" class="form-control" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Poster" class="control-label"></label>
-                <input asp-for="Poster" class="form-control" />
+                <label for="Poster" class="control-label">Poster (jpeg, jpg, or png)</label>
+                <input asp-for="Poster" type="file" class="form-control" />
                 <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

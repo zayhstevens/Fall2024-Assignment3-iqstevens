@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fall2024_Assignment3_iqstevens.Data;
 using Fall2024_Assignment3_iqstevens.Models;
+using System.Text.RegularExpressions;
 
 namespace Fall2024_Assignment3_iqstevens.Controllers
 {
@@ -22,7 +23,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         // GET: Actor
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Course.ToListAsync());
+            return View(await _context.Actor.ToListAsync());
         }
 
         // GET: Actor/Details/5
@@ -33,12 +34,15 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
-            var actor = await _context.Course
+            var actor = await _context.Actor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (actor == null)
             {
                 return NotFound();
             }
+
+            string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
+            ViewData["MimeType"] = mimeType;
 
             return View(actor);
         }
@@ -54,10 +58,37 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Gender,Age,IMDB,Photo")] Actor actor)
+        public async Task<IActionResult> Create([Bind("Id,Name,Gender,Age,IMDB,Photo")] Actor actor, IFormFile Photo)
         {
+            if (!IsValidIMDBLink(actor.IMDB))
+            {
+                ModelState.AddModelError("IMDB", "The IMDB field must be a valid IMDB URL.");
+            }
+
             if (ModelState.IsValid)
             {
+                if (Photo != null || Photo!.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    Photo.CopyTo(memoryStream);
+                    actor.Photo = memoryStream.ToArray();
+                    var fileExtension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
+                    string mimeType = "image/jpeg"; // Default to JPEG
+
+                    if (fileExtension == ".png")
+                    {
+                        mimeType = "image/png";
+                    }
+                    else if (fileExtension == ".jpeg" || fileExtension == ".jpg")
+                    {
+                        mimeType = "image/jpeg";
+                    }
+
+                    // Store the MIME type in TempData to use later
+                    TempData["MimeType"] = mimeType;
+                }
+
+
                 _context.Add(actor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,7 +104,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
-            var actor = await _context.Course.FindAsync(id);
+            var actor = await _context.Actor.FindAsync(id);
             if (actor == null)
             {
                 return NotFound();
@@ -86,8 +117,13 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Gender,Age,IMDB,Photo")] Actor actor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Gender,Age,IMDB,Photo")] Actor actor, IFormFile? Photo)
         {
+            if (!IsValidIMDBLink(actor.IMDB))
+            {
+                ModelState.AddModelError("IMDB", "The IMDB field must be a valid IMDB URL.");
+            }
+
             if (id != actor.Id)
             {
                 return NotFound();
@@ -95,6 +131,27 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
 
             if (ModelState.IsValid)
             {
+                if (Photo != null && Photo.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await Photo.CopyToAsync(memoryStream);
+                    actor.Photo = memoryStream.ToArray();
+
+                    var fileExtension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
+                    string mimeType = "image/jpeg"; 
+
+                    if (fileExtension == ".png")
+                    {
+                        mimeType = "image/png";
+                    }
+                    else if (fileExtension == ".jpeg" || fileExtension == ".jpg")
+                    {
+                        mimeType = "image/jpeg";
+                    }
+
+                    TempData["MimeType"] = mimeType;
+                }
+
                 try
                 {
                     _context.Update(actor);
@@ -116,6 +173,18 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
             return View(actor);
         }
 
+        private bool IsValidIMDBLink(string imdbLink)
+        {
+            if (string.IsNullOrEmpty(imdbLink))
+            {
+                return false;
+            }
+
+            // Regex pattern for a valid IMDB URL
+            var regex = new Regex(@"^https:\/\/(www\.)?imdb\.com\/name\/nm\d{7,8}\/?$");
+            return regex.IsMatch(imdbLink);
+        }
+
         // GET: Actor/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -124,12 +193,16 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
-            var actor = await _context.Course
+            var actor = await _context.Actor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (actor == null)
             {
                 return NotFound();
             }
+
+            string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
+            ViewData["MimeType"] = mimeType;
+
 
             return View(actor);
         }
@@ -139,10 +212,10 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var actor = await _context.Course.FindAsync(id);
+            var actor = await _context.Actor.FindAsync(id);
             if (actor != null)
             {
-                _context.Course.Remove(actor);
+                _context.Actor.Remove(actor);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +224,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
 
         private bool ActorExists(int id)
         {
-            return _context.Course.Any(e => e.Id == id);
+            return _context.Actor.Any(e => e.Id == id);
         }
     }
 }

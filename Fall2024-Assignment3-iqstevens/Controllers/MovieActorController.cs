@@ -22,7 +22,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         // GET: MovieActor
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.CourseStudent.Include(m => m.Actor).Include(m => m.Movie);
+            var applicationDbContext = _context.MovieActor.Include(m => m.Actor).Include(m => m.Movie);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
-            var movieActor = await _context.CourseStudent
+            var movieActor = await _context.MovieActor
                 .Include(m => m.Actor)
                 .Include(m => m.Movie)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -49,8 +49,8 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         // GET: MovieActor/Create
         public IActionResult Create()
         {
-            ViewData["ActorId"] = new SelectList(_context.Student, "Id", "Name");
-            ViewData["MovieId"] = new SelectList(_context.Student, "Id", "Name");
+            ViewData["ActorId"] = new SelectList(_context.Actor, "Id", "Name");
+            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Name");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ActorId"] = new SelectList(_context.Student, "Id", "Name", movieActor.ActorId);
-            ViewData["MovieId"] = new SelectList(_context.Student, "Id", "Name", movieActor.MovieId);
+            ViewData["ActorId"] = new SelectList(_context.Actor, "Id", "Name", movieActor.ActorId);
+            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Actor", movieActor.MovieId);
             return View(movieActor);
         }
 
@@ -80,13 +80,13 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
-            var movieActor = await _context.CourseStudent.FindAsync(id);
+            var movieActor = await _context.MovieActor.FindAsync(id);
             if (movieActor == null)
             {
                 return NotFound();
             }
-            ViewData["ActorId"] = new SelectList(_context.Student, "Id", "Name", movieActor.ActorId);
-            ViewData["MovieId"] = new SelectList(_context.Student, "Id", "Name", movieActor.MovieId);
+            ViewData["ActorId"] = new SelectList(_context.Actor, "Id", "Name", movieActor.ActorId);
+            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Name", movieActor.MovieId);
             return View(movieActor);
         }
 
@@ -122,8 +122,8 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ActorId"] = new SelectList(_context.Student, "Id", "Name", movieActor.ActorId);
-            ViewData["MovieId"] = new SelectList(_context.Student, "Id", "Name", movieActor.MovieId);
+            ViewData["ActorId"] = new SelectList(_context.Actor, "Id", "Actor", movieActor.ActorId);
+            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Movie", movieActor.MovieId);
             return View(movieActor);
         }
 
@@ -135,7 +135,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
-            var movieActor = await _context.CourseStudent
+            var movieActor = await _context.MovieActor
                 .Include(m => m.Actor)
                 .Include(m => m.Movie)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -152,10 +152,10 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movieActor = await _context.CourseStudent.FindAsync(id);
+            var movieActor = await _context.MovieActor.FindAsync(id);
             if (movieActor != null)
             {
-                _context.CourseStudent.Remove(movieActor);
+                _context.MovieActor.Remove(movieActor);
             }
 
             await _context.SaveChangesAsync();
@@ -164,7 +164,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
 
         private bool MovieActorExists(int id)
         {
-            return _context.CourseStudent.Any(e => e.Id == id);
+            return _context.MovieActor.Any(e => e.Id == id);
         }
     }
 }

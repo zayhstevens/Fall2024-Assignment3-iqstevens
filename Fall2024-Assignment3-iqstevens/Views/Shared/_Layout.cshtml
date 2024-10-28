@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Fall2024_Assignment3_iqstevens.styles.css" asp-append-version="true" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.0/themes/blitzer/jquery-ui.css" integrity="sha384-3wDNEOeun1/XYj6VBZ5+dcWLbCvKLqyFjDHRaoOo6l0UTkyO+DODiwjmVnJ+ZN2G" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js" integrity="sha384-8EM386r8XMMzwGPUxfGNr6c1wIOYnPQBJ6VFxzKCZeklpQarHoZGB40kdNDA3gYr" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.jqueryui.min.css" integrity="sha384-th9D3xc2k3JesX7+w/bluF7nygnzzGhPKc8zHgtnWp9cuKiXOxARaWGkMA8CTRKi" crossorigin="anonymous">
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" integrity="sha384-MgwUq0TVErv5Lkj/jIAgQpC+iUIqwhwXxJMfrZQVAOhr++1MR02yXH8aXdPc3fk0" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.jqueryui.min.js" integrity="sha384-usgmMc3kFxnNTojLh7CSi++Peud50m/LAaRtpNaa9eLPFZhrpFt7mxJ//O7q3/tL" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -23,7 +31,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Index">Movie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Actor" asp-action="Index">Actor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MovieActor" asp-action="Index">Movie-Actors</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -39,7 +53,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Fall2024_Assignment3_iqstevens - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Fall2024_Assignment3_iqstevens 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

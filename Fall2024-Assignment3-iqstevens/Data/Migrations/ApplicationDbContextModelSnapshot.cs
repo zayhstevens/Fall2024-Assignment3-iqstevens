@@ -42,7 +42,7 @@ namespace Fall2024_Assignment3_iqstevens.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.ToTable("Actor");
                 });
 
             modelBuilder.Entity("Fall2024_Assignment3_iqstevens.Models.Movie", b =>
@@ -50,6 +50,10 @@ namespace Fall2024_Assignment3_iqstevens.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("IMDB")
                         .HasColumnType("TEXT");
@@ -59,7 +63,6 @@ namespace Fall2024_Assignment3_iqstevens.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Poster")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<int>("ReleaseYear")
@@ -67,7 +70,7 @@ namespace Fall2024_Assignment3_iqstevens.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Student");
+                    b.ToTable("Movie");
                 });
 
             modelBuilder.Entity("Fall2024_Assignment3_iqstevens.Models.MovieActor", b =>
@@ -88,7 +91,7 @@ namespace Fall2024_Assignment3_iqstevens.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("MovieActor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -289,7 +292,7 @@ namespace Fall2024_Assignment3_iqstevens.Data.Migrations
 
             modelBuilder.Entity("Fall2024_Assignment3_iqstevens.Models.MovieActor", b =>
                 {
-                    b.HasOne("Fall2024_Assignment3_iqstevens.Models.Movie", "Actor")
+                    b.HasOne("Fall2024_Assignment3_iqstevens.Models.Actor", "Actor")
                         .WithMany()
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.Cascade)

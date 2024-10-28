@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -30,15 +30,24 @@
             </div>
             <div class="form-group">
                 <label asp-for="IMDB" class="control-label"></label>
-                <input asp-for="IMDB" class="form-control" />
+                <input asp-for="IMDB" class="form-control" style="margin-bottom: 10px;"/>
                 <span asp-validation-for="IMDB" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Photo" class="control-label"></label>
-                <input asp-for="Photo" class="form-control" />
+                <label for="Photo" class="control-label">Poster (jpeg, jpg, or png)</label>
+                @if (Model.Photo != null && Model.Photo.Length > 0)
+                {
+                    var mimeType = "image/jpeg";  
+                    <img src="data:@mimeType;base64,@Convert.ToBase64String(Model.Photo)" alt="Poster" style="width: 150px; height: auto;" />
+                }
+                else
+                {
+                    <span>No image available</span>
+                }
+                <input asp-for="Photo" type="file" class="form-control" style="margin-top: 10px;" />
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

@@ -18,7 +18,7 @@ public class MovieActor{
     [ForeignKey("Actor")]
     public int ActorId { get; set; }
 
-    public Movie? Actor {get; set;}
+    public Actor? Actor {get; set;}
 
 
 }

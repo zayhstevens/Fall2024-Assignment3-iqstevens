@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -24,16 +24,30 @@
                 <span asp-validation-for="IMDB" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Genre" class="control-label"></label>
+                <input asp-for="Genre" class="form-control" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ReleaseYear" class="control-label"></label>
-                <input asp-for="ReleaseYear" class="form-control" />
+                <input asp-for="ReleaseYear" class="form-control" style="margin-bottom: 10px;" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Poster" class="control-label"></label>
-                <input asp-for="Poster" class="form-control" />
+                <label for="Poster" class="control-label">Poster (jpeg, jpg, or png)</label>
+                @if (Model.Poster != null && Model.Poster.Length > 0)
+                {
+                    var mimeType = "image/jpeg";  // Assuming the default MIME type is JPEG
+                    <img src="data:@mimeType;base64,@Convert.ToBase64String(Model.Poster)" alt="Poster" style="width: 150px; height: auto;" />
+                }
+                else
+                {
+                    <span>No image available</span>
+                }
+                <input asp-for="Poster" type="file" class="form-control" style="margin-top: 10px;" />
                 <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
