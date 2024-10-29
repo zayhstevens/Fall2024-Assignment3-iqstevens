@@ -11,6 +11,8 @@ using System.Text.RegularExpressions;
 using OpenAI.Chat;
 using Azure.AI.OpenAI;
 using Azure;
+using VaderSharp2;
+using System.ClientModel;
 
 namespace Fall2024_Assignment3_iqstevens.Controllers
 {
@@ -55,18 +57,38 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 .ToListAsync();
 
 
-            //ChatClient client = new(model: "gpt-35-turbo", apiKey: _config["OpenAI:ApiKey"]);
 
             var endpoint = new Uri(_config["OpenAI:Endpoint"]);  // Azure OpenAI endpoint
             var apiKey = new AzureKeyCredential(_config["OpenAI:ApiKey"]);
             var openAiClient = new AzureOpenAIClient(endpoint, apiKey);
+            var chatClient = openAiClient.GetChatClient("gpt-35-turbo");
+            string[] personas = {"is harsh", "is moderate", "loves fantasy movies", "loves romance movies", "prefers historical movies",
+            "prefers meaningful movies", "likes to discuss acting skills", "prefers musicals", "likes to analyze the small movie things",
+            "prefers superhero movies"};
 
-            var reviews = new List<string>();
+            var reviewsent = new List<MovieDVM.ReviewSent>();
 
-            string prompt = $"Write 10 brief reviews based on different reviewer personas for the movie '{movie.Name}', each review separated by '|'. Include a fictional reviewer name at the beginning of each review.";
+                var messages = new ChatMessage[]
+                {
+                    new SystemChatMessage($"You represent a group of {personas.Length} film critics who have the following personalities: {string.Join(",", personas)}. When you receive a question, respond as each member of the group."),
+                    new UserChatMessage($"How would you rate the movie {movie.Name} released in {movie.ReleaseYear} out of 10 in less than 150 words? Don't indicate the persona you have, end each response with a '|', and don't indicate the order of the reviews.")
+                };
+                ClientResult<ChatCompletion> result = await chatClient.CompleteChatAsync(messages);
+                string[] reviews = result.Value.Content[0].Text.Split('|').Select(s => s.Trim()).ToArray();
 
+                var analyzer = new SentimentIntensityAnalyzer();
+            for (int i = 0; i < 10; i++)
+            {
+                var sentiment = analyzer.PolarityScores(reviews[i]);
 
-            var vm = new MovieDVM(movie, actors, reviews);
+                reviewsent.Add(new MovieDVM.ReviewSent
+                {
+                    ReviewText = reviews[i],
+                    SentScore = sentiment.Compound
+                });
+            }
+
+            var vm = new MovieDVM(movie, actors, reviewsent);
 
             string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
             ViewData["MimeType"] = mimeType;

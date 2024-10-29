@@ -54,7 +54,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<h5 style="margin-top: 20px;">Movies with Actor</h5>
+<h3 style="margin-top: 20px;">Movies with Actor</h3>
 <table class="table">
     <thead>
         <tr>
@@ -80,3 +80,27 @@
         }
     </tbody>
 </table>
+
+<h3 style="margin-top: 20px;">Related Tweets</h3>
+<h5>Overall Sentiment: @Model.TweetSents.Average(t => t.SentScore).ToString("F4")</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Tweet</th>
+            <th>Sentiment Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tweet in Model.TweetSents)
+        {
+            <tr>
+                <td>@tweet.Username</td>
+                <td>@tweet.Tweet</td>
+                <td>@tweet.SentScore</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -10,31 +10,31 @@
     <h4>Movie</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Movie.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Movie.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Movie.IMDB)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Movie.IMDB)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Movie.Genre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Movie.Genre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Movie.ReleaseYear)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Movie.ReleaseYear)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Movie.Poster)
         </dt>
         <dd class="col-sm-10">
@@ -54,7 +54,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<h5 style="margin-top: 20px;">Actors in Movie</h5>
+<h3 style="margin-top: 20px;">Actors in Movie</h3>
 <table class="table">
     <thead>
         <tr>
@@ -80,3 +80,25 @@
         }
     </tbody>
 </table>
+
+<h3 style="margin-top: 20px;">Movie Reviews</h3>
+<h5>Overall Sentiment: @Model.Reviewsents.Average(r => r.SentScore).ToString("F4")</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Review</th>
+            <th>Sentiment Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model.Reviewsents)
+        {
+            <tr>
+                <td>@review.ReviewText</td>
+                <td>@review.SentScore</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

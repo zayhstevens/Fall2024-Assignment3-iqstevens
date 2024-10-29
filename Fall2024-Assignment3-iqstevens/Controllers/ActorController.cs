@@ -9,6 +9,11 @@ using Fall2024_Assignment3_iqstevens.Data;
 using Fall2024_Assignment3_iqstevens.Models;
 using System.Text.RegularExpressions;
 using OpenAI.Chat;
+using Azure.AI.OpenAI;
+using Azure;
+using VaderSharp2;
+using System.ClientModel;
+using System.Text.Json.Nodes;
 
 namespace Fall2024_Assignment3_iqstevens.Controllers
 {
@@ -50,10 +55,38 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 .Select(cs => cs.Movie)
                 .ToListAsync();
 
-            //ChatClient client = new(model: "gpt-35-turbo", apiKey: _config["OpenAI:ApiKey"]);
-            var tweets = new List<string>();
+            var endpoint = new Uri(_config["OpenAI:Endpoint"]); 
+            var apiKey = new AzureKeyCredential(_config["OpenAI:ApiKey"]);
+            var openAiClient = new AzureOpenAIClient(endpoint, apiKey);
+            var chatClient = openAiClient.GetChatClient("gpt-35-turbo");
 
-            var vm = new ActorDVM(actor, movies, tweets);
+            var tweetsSent = new List<ActorDVM.TweetSent>();
+
+            var messages = new ChatMessage[]
+        {
+            new SystemChatMessage($"You represent the Twitter social media platform."),
+            new UserChatMessage($"Generate 20 tweets in the form of a valid JSON formatted array of objects containing the tweet and username. The response should start with [. Use a variety of users for the tweets and have them be about the actor {actor.Name}.")
+        };
+            ClientResult<ChatCompletion> result = await chatClient.CompleteChatAsync(messages);
+            string tweetsJsonString = result.Value.Content.FirstOrDefault()?.Text ?? "[]";
+            JsonArray json = JsonNode.Parse(tweetsJsonString)!.AsArray();
+
+            var analyzer = new SentimentIntensityAnalyzer();
+            foreach (var tweet in json)
+            {
+                var username = tweet["username"]?.ToString() ?? "";
+                var tweetText = tweet["tweet"]?.ToString() ?? "";
+                var sentiment = analyzer.PolarityScores(tweetText);
+
+                tweetsSent.Add(new ActorDVM.TweetSent
+                {
+                    Username = username,
+                    Tweet = tweetText,
+                    SentScore = sentiment.Compound
+                });
+            }
+
+            var vm = new ActorDVM(actor, movies, tweetsSent);
 
             string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
             ViewData["MimeType"] = mimeType;
