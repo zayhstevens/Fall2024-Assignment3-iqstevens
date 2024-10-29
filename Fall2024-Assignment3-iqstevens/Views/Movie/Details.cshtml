@@ -1,4 +1,4 @@
-@model Fall2024_Assignment3_iqstevens.Models.Movie
+@model Fall2024_Assignment3_iqstevens.Models.MovieDVM
 
 @{
     ViewData["Title"] = "Details";
@@ -11,36 +11,36 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Movie.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Movie.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IMDB)
+            @Html.DisplayNameFor(model => model.Movie.IMDB)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IMDB)
+            @Html.DisplayFor(model => model.Movie.IMDB)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.DisplayNameFor(model => model.Movie.Genre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.Movie.Genre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseYear)
+            @Html.DisplayNameFor(model => model.Movie.ReleaseYear)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseYear)
+            @Html.DisplayFor(model => model.Movie.ReleaseYear)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Poster)
+            @Html.DisplayNameFor(model => model.Movie.Poster)
         </dt>
         <dd class="col-sm-10">
-            @if (Model.Poster != null && Model.Poster.Length > 0)
+            @if (Model.Movie.Poster != null && Model.Movie.Poster.Length > 0)
             {
-                <img src="data:@ViewData["MimeType"];base64,@Convert.ToBase64String(Model.Poster)" alt="Poster" style="width: 150px; height: auto;" />
+                <img src="data:@ViewData["MimeType"];base64,@Convert.ToBase64String(Model.Movie.Poster)" alt="Poster" style="width: 150px; height: auto;" />
             }
             else
             {
@@ -50,6 +50,33 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Movie.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<h5 style="margin-top: 20px;">Actors in Movie</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Actors)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Actor" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-controller="Actor" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-controller="Actor" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,4 +1,4 @@
-@model Fall2024_Assignment3_iqstevens.Models.Actor
+@model Fall2024_Assignment3_iqstevens.Models.ActorDVM
 
 @{
     ViewData["Title"] = "Details";
@@ -10,37 +10,37 @@
     <h4>Actor</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IMDB)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IMDB)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Photo)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Name)
         </dt>
         <dd class="col-sm-10">
-            @if (Model.Photo != null && Model.Photo.Length > 0)
+            @Html.DisplayFor(model => model.Actor.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Actor.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Age)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Actor.Age)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.IMDB)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Actor.IMDB)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Photo)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Actor.Photo != null && Model.Actor.Photo.Length > 0)
             {
-                <img src="data:@ViewData["MimeType"];base64,@Convert.ToBase64String(Model.Photo)" alt="Poster" style="width: 150px; height: auto;" />
+                <img src="data:@ViewData["MimeType"];base64,@Convert.ToBase64String(Model.Actor.Photo)" alt="Poster" style="width: 150px; height: auto;" />
             }
             else
             {
@@ -50,6 +50,33 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Actor.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<h5 style="margin-top: 20px;">Movies with Actor</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Movies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Movie" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-controller="Movie" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

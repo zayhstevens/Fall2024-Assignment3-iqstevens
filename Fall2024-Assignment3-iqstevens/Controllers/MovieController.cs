@@ -41,10 +41,18 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
+            var actors = await _context.MovieActor
+                .Include(cs => cs.Actor)
+                .Where(cs => cs.MovieId == movie.Id)
+                .Select(cs => cs.Actor)
+                .ToListAsync();
+
+            var vm = new MovieDVM(movie, actors);
+
             string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
             ViewData["MimeType"] = mimeType;
 
-            return View(movie);
+            return View(vm);
         }
 
         // GET: Movie/Create

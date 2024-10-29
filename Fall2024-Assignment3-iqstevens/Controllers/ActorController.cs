@@ -41,10 +41,18 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 return NotFound();
             }
 
+            var movies = await _context.MovieActor
+                .Include(cs => cs.Movie)
+                .Where(cs => cs.ActorId == actor.Id)
+                .Select(cs => cs.Movie)
+                .ToListAsync();
+
+            var vm = new ActorDVM(actor, movies);
+
             string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
             ViewData["MimeType"] = mimeType;
 
-            return View(actor);
+            return View(vm);
         }
 
         // GET: Actor/Create
@@ -109,6 +117,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
             {
                 return NotFound();
             }
+
             return View(actor);
         }
 
