@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fall2024-Assignment3-iqstevens")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba104b05e771bfceca5c39132edf975f31284273")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1f08e38df6c1be880539346f04ff902cb27b7f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fall2024-Assignment3-iqstevens")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fall2024-Assignment3-iqstevens")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

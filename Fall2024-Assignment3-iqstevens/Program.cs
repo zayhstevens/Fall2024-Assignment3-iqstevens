@@ -40,6 +40,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseDeveloperExceptionPage();
 
 app.UseAuthorization();
 
