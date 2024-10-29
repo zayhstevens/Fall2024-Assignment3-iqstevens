@@ -8,17 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using Fall2024_Assignment3_iqstevens.Data;
 using Fall2024_Assignment3_iqstevens.Models;
 using System.Text.RegularExpressions;
+using OpenAI.Chat;
+using Azure.AI.OpenAI;
+using Azure;
 
 namespace Fall2024_Assignment3_iqstevens.Controllers
 {
     public class MovieController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
 
-        public MovieController(ApplicationDbContext context)
+        public MovieController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
+
+
 
         // GET: Movie
         public async Task<IActionResult> Index()
@@ -47,7 +54,19 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 .Select(cs => cs.Actor)
                 .ToListAsync();
 
-            var vm = new MovieDVM(movie, actors);
+
+            //ChatClient client = new(model: "gpt-35-turbo", apiKey: _config["OpenAI:ApiKey"]);
+
+            var endpoint = new Uri(_config["OpenAI:Endpoint"]);  // Azure OpenAI endpoint
+            var apiKey = new AzureKeyCredential(_config["OpenAI:ApiKey"]);
+            var openAiClient = new AzureOpenAIClient(endpoint, apiKey);
+
+            var reviews = new List<string>();
+
+            string prompt = $"Write 10 brief reviews based on different reviewer personas for the movie '{movie.Name}', each review separated by '|'. Include a fictional reviewer name at the beginning of each review.";
+
+
+            var vm = new MovieDVM(movie, actors, reviews);
 
             string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
             ViewData["MimeType"] = mimeType;

@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using Fall2024_Assignment3_iqstevens.Data;
 using Fall2024_Assignment3_iqstevens.Models;
 using System.Text.RegularExpressions;
+using OpenAI.Chat;
 
 namespace Fall2024_Assignment3_iqstevens.Controllers
 {
     public class ActorController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
 
-        public ActorController(ApplicationDbContext context)
+        public ActorController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         // GET: Actor
@@ -47,7 +50,10 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                 .Select(cs => cs.Movie)
                 .ToListAsync();
 
-            var vm = new ActorDVM(actor, movies);
+            //ChatClient client = new(model: "gpt-35-turbo", apiKey: _config["OpenAI:ApiKey"]);
+            var tweets = new List<string>();
+
+            var vm = new ActorDVM(actor, movies, tweets);
 
             string mimeType = TempData["MimeType"]?.ToString() ?? "image/jpeg";
             ViewData["MimeType"] = mimeType;

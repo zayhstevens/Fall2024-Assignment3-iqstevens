@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ErC19FNQU9Q=",
+  "dgSpecHash": "iSJCuZUvXRCZ3U9V6yaGOxaGZ/xUI/Ak6heNPCqGfI9KjkqLX/BoEQhUx08POdjL0A6/tfuznIi7xFqhVzEdVg==",
   "success": true,
   "projectFilePath": "/Users/you/Desktop/Holder for Repo330/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens/Fall2024-Assignment3-iqstevens.csproj",
   "expectedPackageFiles": [
     "/Users/you/.nuget/packages/azure.ai.openai/2.0.0/azure.ai.openai.2.0.0.nupkg.sha512",
-    "/Users/you/.nuget/packages/azure.core/1.43.0/azure.core.1.43.0.nupkg.sha512",
+    "/Users/you/.nuget/packages/azure.core/1.44.1/azure.core.1.44.1.nupkg.sha512",
     "/Users/you/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
     "/Users/you/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/you/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
@@ -170,7 +170,7 @@
     "/Users/you/.nuget/packages/system.io.filesystem.accesscontrol/5.0.0/system.io.filesystem.accesscontrol.5.0.0.nupkg.sha512",
     "/Users/you/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
     "/Users/you/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
-    "/Users/you/.nuget/packages/system.memory.data/1.0.2/system.memory.data.1.0.2.nupkg.sha512",
+    "/Users/you/.nuget/packages/system.memory.data/6.0.0/system.memory.data.6.0.0.nupkg.sha512",
     "/Users/you/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
     "/Users/you/.nuget/packages/system.reflection.metadata/7.0.0/system.reflection.metadata.7.0.0.nupkg.sha512",
     "/Users/you/.nuget/packages/system.reflection.metadataloadcontext/7.0.0/system.reflection.metadataloadcontext.7.0.0.nupkg.sha512",
