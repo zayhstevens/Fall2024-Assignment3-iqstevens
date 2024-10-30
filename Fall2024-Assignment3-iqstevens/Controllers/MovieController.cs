@@ -202,6 +202,16 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                     // Store the MIME type in TempData to use later
                     TempData["MimeType"] = mimeType;
                 }
+                else
+                {
+                    // If no new image was uploaded, keep the existing image
+                    var existingMovie = await _context.Movie.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+                    if (existingMovie != null)
+                    {
+                        movie.Poster = existingMovie.Poster;
+                        TempData["MimeType"] = TempData["MimeType"] ?? "image/jpeg"; // Default or keep the existing MIME type
+                    }
+                }
                     try
                 {
                     _context.Update(movie);

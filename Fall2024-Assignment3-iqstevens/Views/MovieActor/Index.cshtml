@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Movie-Actor</h1>
+<h1>Movie-Actor Connections</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -15,10 +15,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Movie)
             </th>
+            <th>Poster</th>
             <th>
                 @Html.DisplayNameFor(model => model.Actor)
             </th>
-            <th></th>
+            <th>Photo</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +30,53 @@
                 @Html.DisplayFor(modelItem => item.Movie.Name)
             </td>
             <td>
+                @if (item.Movie.Poster != null)
+                {
+                    var movieMimeType = "image/jpeg"; // Default MIME type
+
+                    // Logic to determine the MIME type based on the photo file extension (if accessible)
+                    if (item.Movie.Poster.Length > 3)
+                    {
+                        string photoFormat = System.Text.Encoding.ASCII.GetString(item.Movie.Poster.Take(4).ToArray());
+                        if (photoFormat.Contains("PNG"))
+                        {
+                            movieMimeType = "image/png";
+                        }
+                        else if (photoFormat.Contains("JFIF") || photoFormat.Contains("Exif"))
+                        {
+                            movieMimeType = "image/jpeg";
+                        }
+                    }
+
+                    <img src="data:@movieMimeType;base64,@Convert.ToBase64String(item.Movie.Poster)"
+                         alt="Actor Photo" style="width:100px; height:auto;" />
+                }
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Actor.Name)
+            </td>
+            <td>
+                @if (item.Actor.Photo != null)
+                {
+                    var actorMimeType = "image/jpeg"; // Default MIME type
+
+                    // Logic to determine the MIME type based on the photo file extension (if accessible)
+                    if (item.Actor.Photo.Length > 3)
+                    {
+                        string photoFormat = System.Text.Encoding.ASCII.GetString(item.Actor.Photo.Take(4).ToArray());
+                        if (photoFormat.Contains("PNG"))
+                        {
+                            actorMimeType = "image/png";
+                        }
+                        else if (photoFormat.Contains("JFIF") || photoFormat.Contains("Exif"))
+                        {
+                            actorMimeType = "image/jpeg";
+                        }
+                    }
+
+                    <img src="data:@actorMimeType;base64,@Convert.ToBase64String(item.Actor.Photo)"
+                         alt="Actor Photo" style="width:100px; height:auto;" />
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

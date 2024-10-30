@@ -186,7 +186,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
                     actor.Photo = memoryStream.ToArray();
 
                     var fileExtension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
-                    string mimeType = "image/jpeg"; 
+                    string mimeType = "image/jpeg";
 
                     if (fileExtension == ".png")
                     {
@@ -199,8 +199,18 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
 
                     TempData["MimeType"] = mimeType;
                 }
+                else
+                {
+                    // If no new image was uploaded, keep the existing image
+                    var existingActor = await _context.Actor.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+                    if (existingActor != null)
+                    {
+                        actor.Photo = existingActor.Photo;
+                        TempData["MimeType"] = TempData["MimeType"] ?? "image/jpeg"; // Default or keep the existing MIME type
+                    }
+                }
 
-                try
+                    try
                 {
                     _context.Update(actor);
                     await _context.SaveChangesAsync();
