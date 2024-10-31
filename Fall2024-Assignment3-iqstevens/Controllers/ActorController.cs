@@ -235,7 +235,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
         {
             if (string.IsNullOrEmpty(imdbLink))
             {
-                return false;
+                return true;
             }
 
             // Regex pattern for a valid IMDB URL
