@@ -11,6 +11,8 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 :root {
   --blue: #df691a;
@@ -123,12 +125,14 @@ ul ol {
 }
 
 dt {
-  font-weight: 700;
+    font-weight: 700;
+    font-size: 20px !important;
 }
 
 dd {
-  margin-bottom: .5rem;
-  margin-left: 0;
+    margin-bottom: .5rem;
+    margin-left: 0;
+    font-size: 20px !important;
 }
 
 blockquote {
@@ -161,9 +165,10 @@ sup {
 }
 
 a {
-  color: #df691a;
-  text-decoration: none;
-  background-color: transparent;
+    color: #df691a;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 20px !important;
 }
 
 a:hover {
@@ -228,8 +233,9 @@ th {
 }
 
 label {
-  display: inline-block;
-  margin-bottom: 0.5rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-size: 20px !important;
 }
 
 button {
@@ -253,7 +259,8 @@ textarea {
 
 button,
 input {
-  overflow: visible;
+    overflow: visible;
+    font-size: 20px !important;
 }
 
 button,
@@ -391,6 +398,7 @@ h5, .h5 {
 h6, .h6 {
   font-size: 1rem;
 }
+
 
 .lead {
   font-size: 1.25rem;
@@ -1665,6 +1673,7 @@ pre code {
     margin-left: 91.666667%;
   }
 }
+
 
 .table {
   width: 100%;
@@ -10609,3 +10618,4 @@ label,
 .modal-header, .modal-footer {
   background-color: rgba(255, 255, 255, 0.075);
 }
+

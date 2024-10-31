@@ -10,17 +10,70 @@
     <h4>Movie-Actor Connection</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Movie)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Movie.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            Poster
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Movie.Poster != null)
+            {
+                var movieMimeType = "image/jpeg"; // Default MIME type
+
+                // Logic to determine the MIME type based on the photo file extension (if accessible)
+                if (Model.Movie.Poster.Length > 3)
+                {
+                    string photoFormat = System.Text.Encoding.ASCII.GetString(Model.Movie.Poster.Take(4).ToArray());
+                    if (photoFormat.Contains("PNG"))
+                    {
+                        movieMimeType = "image/png";
+                    }
+                    else if (photoFormat.Contains("JFIF") || photoFormat.Contains("Exif"))
+                    {
+                        movieMimeType = "image/jpeg";
+                    }
+                }
+
+                <img src="data:@movieMimeType;base64,@Convert.ToBase64String(Model.Movie.Poster)"
+                     alt="Actor Photo" style="width:100px; height:auto;" />
+            }
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Actor)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Actor.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Photo
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Actor.Photo != null)
+            {
+                var actorMimeType = "image/jpeg"; // Default MIME type
+
+                // Logic to determine the MIME type based on the photo file extension (if accessible)
+                if (Model.Actor.Photo.Length > 3)
+                {
+                    string photoFormat = System.Text.Encoding.ASCII.GetString(Model.Actor.Photo.Take(4).ToArray());
+                    if (photoFormat.Contains("PNG"))
+                    {
+                        actorMimeType = "image/png";
+                    }
+                    else if (photoFormat.Contains("JFIF") || photoFormat.Contains("Exif"))
+                    {
+                        actorMimeType = "image/jpeg";
+                    }
+                }
+
+                <img src="data:@actorMimeType;base64,@Convert.ToBase64String(Model.Actor.Photo)"
+                     alt="Actor Photo" style="width:100px; height:auto;" />
+            }
+
         </dd>
     </dl>
 </div>

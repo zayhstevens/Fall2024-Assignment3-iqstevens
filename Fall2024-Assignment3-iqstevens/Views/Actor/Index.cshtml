@@ -7,24 +7,24 @@
 <h1>Actors</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" style="font-size: 20px;">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th style="font-size: 20px;">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th style="font-size: 20px;">
                 @Html.DisplayNameFor(model => model.Gender)
             </th>
-            <th>
+            <th style="font-size: 20px;">
                 @Html.DisplayNameFor(model => model.Age)
             </th>
-            <th>
+            <th style="font-size: 20px;">
                 @Html.DisplayNameFor(model => model.IMDB)
             </th>
-            <th>
+            <th style="font-size: 20px;">
                 @Html.DisplayNameFor(model => model.Photo)
             </th>
             <th></th>
@@ -33,16 +33,16 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td style="font-size: 20px;">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td style="font-size: 20px;">
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
-            <td>
+            <td style="font-size: 20px;">
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
-            <td>
+            <td style="font-size: 20px;">
                 @if (!string.IsNullOrEmpty(item.IMDB))
                 {
                     <a href="@item.IMDB" target="_blank">View on IMDB</a>
@@ -72,9 +72,9 @@
                 }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" style="font-size: 20px;">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" style="font-size: 20px;">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" style="font-size: 20px;">Delete</a>
             </td>
         </tr>
 }
