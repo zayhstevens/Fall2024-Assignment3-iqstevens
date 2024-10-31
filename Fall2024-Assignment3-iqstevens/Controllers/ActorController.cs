@@ -65,7 +65,7 @@ namespace Fall2024_Assignment3_iqstevens.Controllers
             var messages = new ChatMessage[]
         {
             new SystemChatMessage($"You represent the Twitter social media platform."),
-            new UserChatMessage($"Generate 20 tweets in the form of a valid JSON formatted array of objects containing the tweet and username. The response should start with [. Use a variety of users for the tweets and have them be about the actor {actor.Name}.")
+            new UserChatMessage($"Don't say anything else, just generate 20 tweets in the form of a valid JSON formatted array of objects containing the tweet and username. The response should start with [. Use a variety of users for the tweets and have them be about the actor {actor.Name}.")
         };
             ClientResult<ChatCompletion> result = await chatClient.CompleteChatAsync(messages);
             string tweetsJsonString = result.Value.Content.FirstOrDefault()?.Text ?? "[]";
